@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photo Wall</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 20px;
+        }
+        .photo {
+            margin: 10px;
+        }
+        .photo img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div id="photo-wall"></div>
+    <script>
+        // 获取 URL 参数
+        function getQueryParams() {
+            let params = {};
+            window.location.search.substring(1).split("&").forEach(function(part) {
+                let item = part.split("=");
+                params[item[0]] = decodeURIComponent(item[1]);
+            });
+            return params;
+        }
+
+        // 根据地名显示照片
+        const params = getQueryParams();
+        const placeName = params['place'];
+        const places = {
+            "New York": ["nyc1.jpg", "nyc2.jpg"],
+            "Paris": ["paris1.jpg", "paris2.jpg"],
+            // 添加更多的地方
+        };
+
+        if (places[placeName]) {
+            const photoWall = document.getElementById('photo-wall');
+            places[placeName].forEach(function(photo) {
+                const div = document.createElement('div');
+                div.classList.add('photo');
+                const img = document.createElement('img');
+                img.src = 'images/' + photo;
+                div.appendChild(img);
+                photoWall.appendChild(div);
+            });
+        } else {
+            document.body.innerHTML = '<h1>No photos available for ' + placeName + '</h1>';
+        }
+    </script>
+</body>
+</html>

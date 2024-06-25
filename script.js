@@ -11,12 +11,12 @@ var places = [
     {
         coords: [40.712776, -74.005974],
         name: "New York",
-        photos: ["seok.png", "tianwang.jpg"]
+        photos: ["nyc.jpg", "nyc.png"]
     },
     {
         coords: [48.856613, 2.352222],
         name: "Paris",
-        photos: ["wan.png", "wan.png"]
+        photos: ["paris.jpg", "paris.png"]
     },
     // 添加更多的地方
 ];
@@ -24,9 +24,9 @@ var places = [
 // 添加标记和弹出框
 places.forEach(function(place) {
     var marker = L.marker(place.coords).addTo(map);
-    var popupContent = '<h2>' + place.name + '</h2><div>';
+    var popupContent = '<h2><a href="photos.html?place=' + encodeURIComponent(place.name) + '" target="_blank">' + place.name + '</a></h2><div>';
     place.photos.forEach(function(photo) {
-        popupContent += '<img src="' + photo + '" alt="' + place.name + '" style="width: 100px; margin: 5px;">';
+        popupContent += '<img src="images/' + photo + '" alt="' + place.name + '" style="width: 100px; margin: 5px;">';
     });
     popupContent += '</div>';
     marker.bindPopup(popupContent);
