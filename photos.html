@@ -35,28 +35,32 @@
             return params;
         }
 
-        // 根据地名显示照片
-        const params = getQueryParams();
-        const placeName = params['place'];
-        const places = {
-            "New York": ["nyc1.jpg", "nyc2.jpg"],
-            "Paris": ["paris1.jpg", "paris2.jpg"],
-            // 添加更多的地方
-        };
-
-        if (places[placeName]) {
+        // 显示照片墙
+        function displayPhotos(placeName, photos) {
             const photoWall = document.getElementById('photo-wall');
-            places[placeName].forEach(function(photo) {
+            photos.forEach(function(photo) {
                 const div = document.createElement('div');
                 div.classList.add('photo');
                 const img = document.createElement('img');
-                img.src = 'images/' + photo;
+                img.src = 'images/' + placeName + '/' + photo;
                 div.appendChild(img);
                 photoWall.appendChild(div);
             });
-        } else {
-            document.body.innerHTML = '<h1>No photos available for ' + placeName + '</h1>';
         }
+
+        // 读取并处理 JSON 文件
+        fetch('photos.json')
+            .then(response => response.json())
+            .then(data => {
+                const params = getQueryParams();
+                const placeName = params['place'];
+                if (data[placeName]) {
+                    displayPhotos(placeName, data[placeName]);
+                } else {
+                    document.body.innerHTML = '<h1>No photos available for ' + placeName + '</h1>';
+                }
+            })
+            .catch(error => console.error('Error loading photos:', error));
     </script>
 </body>
 </html>
