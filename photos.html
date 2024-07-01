@@ -1,66 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Photo Wall</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            padding: 20px;
-        }
-        .photo {
-            margin: 10px;
-        }
-        .photo img {
-            max-width: 100%;
-            height: auto;
-            display: block;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Birthday, My Love</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery.js/dist/css/lightgallery.css">
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f5f5f5;
+      text-align: center;
+      padding: 50px;
+    }
+    h1 {
+      color: #ff69b4;
+    }
+    .gallery {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .gallery-item {
+      margin: 10px;
+      border: 5px solid #ff69b4;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .gallery-item img {
+      width: 300px;
+      height: 200px;
+      object-fit: cover;
+    }
+  </style>
 </head>
 <body>
-    <div id="photo-wall"></div>
-    <script>
-        // 获取 URL 参数
-        function getQueryParams() {
-            let params = {};
-            window.location.search.substring(1).split("&").forEach(function(part) {
-                let item = part.split("=");
-                params[item[0]] = decodeURIComponent(item[1]);
-            });
-            return params;
-        }
-
-        // 显示照片墙
-        function displayPhotos(placeName, photos) {
-            const photoWall = document.getElementById('photo-wall');
-            photos.forEach(function(photo) {
-                const div = document.createElement('div');
-                div.classList.add('photo');
-                const img = document.createElement('img');
-                img.src = 'images/' + placeName + '/' + photo;
-                div.appendChild(img);
-                photoWall.appendChild(div);
-            });
-        }
-
-        // 读取并处理 JSON 文件
-        fetch('photos.json')
-            .then(response => response.json())
-            .then(data => {
-                const params = getQueryParams();
-                const placeName = params['place'];
-                if (data[placeName]) {
-                    displayPhotos(placeName, data[placeName]);
-                } else {
-                    document.body.innerHTML = '<h1>No photos available for ' + placeName + '</h1>';
-                }
-            })
-            .catch(error => console.error('Error loading photos:', error));
-    </script>
+  <h1>Happy Birthday, My Love</h1>
+  <p>Here's a collection of our beautiful moments together. I love you!</p>
+  <div id="lightgallery" class="gallery">
+    <!-- Photos will be inserted here -->
+  </div>
+  <div class="gallery-item">
+    <a href="images/nyc.jpg">
+      <img src="images/nyc.jpg" alt="Our trip to Paris">
+    </a>
+  </div>
+  <div class="gallery-item">
+    <a href="images/nyc.jpg">
+      <img src="images/nyc.png" alt="Our anniversary video">
+    </a>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/lightgallery.js/dist/js/lightgallery.min.js"></script>
+  <script>
+    lightGallery(document.getElementById('lightgallery'));
+  </script>
 </body>
 </html>
