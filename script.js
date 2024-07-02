@@ -25,7 +25,7 @@ fetch('photos.json')
     .then(data => {
         places.forEach(function(place) {
             var marker = L.marker(place.coords).addTo(map);
-            var popupContent = '<h2><a href="photos.html?place=' + encodeURIComponent(place.name) + '" target="_blank">' + place.name + '</a></h2><div>';
+            var popupContent = '<h2><a href="gallery.html?place=' + encodeURIComponent(place.name) + '" target="_blank">' + place.name + '</a></h2><div>';
             
             // 获取前两张照片
             var photos = data[place.name] || [];

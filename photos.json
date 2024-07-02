@@ -1,4 +1,4 @@
 {
-    "New York": ["photo1.jpg", "photo2.jpg"],
-    "Paris": ["photo1.jpg", "photo2.jpg"]
+    "New York": ["1.jpg", "2.jpg"],
+    "Paris": ["1.jpg", "2.jpg"]
 }

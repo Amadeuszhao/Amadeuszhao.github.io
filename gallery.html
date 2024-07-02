@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photo Gallery</title>
+</head>
+<body>
+    <div id="root"></div>
+    <script src="https://unpkg.com/react/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/react-image-gallery/styles/css/image-gallery.css"></script>
+    <script src="https://unpkg.com/react-image-gallery"></script>
+    <script>
+        const { useEffect, useState } = React;
+        const { render } = ReactDOM;
+        const ReactImageGallery = window.ReactImageGallery.default;
+
+        function Gallery() {
+            const [images, setImages] = useState([]);
+
+            useEffect(() => {
+                const params = new URLSearchParams(window.location.search);
+                const place = params.get('place');
+                if (place) {
+                    fetch('photos.json')
+                        .then(response => response.json())
+                        .then(data => {
+                            const photos = data[place] || [];
+                            const galleryImages = photos.map(photo => ({
+                                original: 'images/' + place + '/' + photo,
+                                thumbnail: 'images/' + place + '/' + photo
+                            }));
+                            setImages(galleryImages);
+                        })
+                        .catch(error => console.error('Error loading photos:', error));
+                }
+            }, []);
+
+            return <ReactImageGallery items={images} />;
+        }
+
+        render(<Gallery />, document.getElementById('root'));
+    </script>
+</body>
+</html>
